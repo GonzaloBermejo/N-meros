@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Ara li toca a...</title>
+  <title>Ara li toca...</title>
 
   <style>
 
@@ -119,14 +119,19 @@
 
   <div class="pagina">
 
+    <!-- ESQUERRA -->
+
     <div class="cuadro">
       <h3>Ja han sortit</h3>
       <div id="hanSortit" class="lista-nombres">—</div>
     </div>
 
+
+    <!-- CENTRE -->
+
     <div class="centro">
 
-      <h1>Ara li toca a...</h1>
+      <h1 id="frase">Ara li toca a...</h1>
 
       <div id="nombre">---</div>
 
@@ -138,6 +143,9 @@
 
     </div>
 
+
+    <!-- DRETA -->
+
     <div class="cuadro">
       <h3>Queden per sortir</h3>
       <div id="queden" class="lista-nombres"></div>
@@ -145,39 +153,42 @@
 
   </div>
 
+
   <script>
 
-    const nombres = [
-      "Jan",
-      "Jaden",
-      "Laura",
-      "Hugo",
-      "Faustino",
-      "Tamara",
-      "María",
-      "Silke",
-      "Lila",
-      "Naila",
-      "Jad",
-      "Ilina",
-      "Martí",
-      "Laia",
-      "Aleksandr",
-      "Andrew Matías",
-      "Dominika",
-      "Albert",
-      "Varvara",
-      "Luz",
-      "Aliha",
-      "Andrew Jeremías",
-      "Ellen",
-      "Redhen",
-      "Amy",
-      "Taoming",
-      "Hengji"
+    const alumnes = [
+      { nom: "Jan", frase: "Ara li toca al" },
+      { nom: "Jaden", frase: "Ara li toca al" },
+      { nom: "Laura", frase: "Ara li toca a la" },
+      { nom: "Hugo", frase: "Ara li toca a l'" },
+      { nom: "Faustino", frase: "Ara li toca al" },
+      { nom: "Tamara", frase: "Ara li toca a la" },
+      { nom: "María", frase: "Ara li toca a la" },
+      { nom: "Silke", frase: "Ara li toca a la" },
+      { nom: "Lila", frase: "Ara li toca a la" },
+      { nom: "Naila", frase: "Ara li toca a la" },
+      { nom: "Jad", frase: "Ara li toca al" },
+      { nom: "Ilina", frase: "Ara li toca a l'" },
+      { nom: "Martí", frase: "Ara li toca al" },
+      { nom: "Laia", frase: "Ara li toca a la" },
+      { nom: "Aleksandr", frase: "Ara li toca a l'" },
+      { nom: "Andrew Matías", frase: "Ara li toca a l'" },
+      { nom: "Dominika", frase: "Ara li toca a la" },
+      { nom: "Albert", frase: "Ara li toca a l'" },
+      { nom: "Varvara", frase: "Ara li toca a la" },
+      { nom: "Luz", frase: "Ara li toca a la" },
+      { nom: "Aliha", frase: "Ara li toca a l'" },
+      { nom: "Andrew Jeremías", frase: "Ara li toca a l'" },
+      { nom: "Ellen", frase: "Ara li toca a l'" },
+      { nom: "Redhen", frase: "Ara li toca al" },
+      { nom: "Amy", frase: "Ara li toca a l'" },
+      { nom: "Taoming", frase: "Ara li toca al" },
+      { nom: "Hengji", frase: "Ara li toca al" }
     ];
 
+
     function crearNumeros() {
+
       const numeros = [];
 
       for (let i = -500; i <= 500; i++) {
@@ -187,8 +198,9 @@
       return numeros;
     }
 
-    let nombresDisponibles = [...nombres];
-    let nombresSalidos = [];
+
+    let alumnesDisponibles = [...alumnes];
+    let alumnesSortits = [];
     let numerosDisponibles = crearNumeros();
 
 
@@ -197,16 +209,18 @@
       const hanSortit = document.getElementById("hanSortit");
       const queden = document.getElementById("queden");
 
-      if (nombresSalidos.length === 0) {
+      if (alumnesSortits.length === 0) {
         hanSortit.innerHTML = "—";
       } else {
-        hanSortit.innerHTML = nombresSalidos.join("<br>");
+        hanSortit.innerHTML =
+          alumnesSortits.map(alumne => alumne.nom).join("<br>");
       }
 
-      if (nombresDisponibles.length === 0) {
+      if (alumnesDisponibles.length === 0) {
         queden.innerHTML = "—";
       } else {
-        queden.innerHTML = nombresDisponibles.join("<br>");
+        queden.innerHTML =
+          alumnesDisponibles.map(alumne => alumne.nom).join("<br>");
       }
 
     }
@@ -215,24 +229,29 @@
     function generar() {
 
       // Si ja han sortit tots, començar una nova ronda
-      if (nombresDisponibles.length === 0) {
-        nombresDisponibles = [...nombres];
-        nombresSalidos = [];
+
+      if (alumnesDisponibles.length === 0) {
+
+        alumnesDisponibles = [...alumnes];
+        alumnesSortits = [];
         numerosDisponibles = crearNumeros();
+
       }
 
 
-      // Escollir un alumne a l'atzar
-      const indiceNombre =
-        Math.floor(Math.random() * nombresDisponibles.length);
+      // Escollir alumne a l'atzar
 
-      const nombreAleatorio =
-        nombresDisponibles.splice(indiceNombre, 1)[0];
+      const indiceAlumne =
+        Math.floor(Math.random() * alumnesDisponibles.length);
 
-      nombresSalidos.push(nombreAleatorio);
+      const alumne =
+        alumnesDisponibles.splice(indiceAlumne, 1)[0];
+
+      alumnesSortits.push(alumne);
 
 
       // Escollir un número que encara no hagi sortit
+
       const indiceNumero =
         Math.floor(Math.random() * numerosDisponibles.length);
 
@@ -240,19 +259,30 @@
         numerosDisponibles.splice(indiceNumero, 1)[0];
 
 
-      // Mostrar sempre dos decimals
-      // i el signe + en els positius
-      const numeroAleatorio =
+      // Formatar número
+
+      const numeroAleatori =
         numero >= 0
           ? "+" + numero.toFixed(2)
           : numero.toFixed(2);
 
 
+      // Mostrar alumne
+
+      document.getElementById("frase").textContent =
+        alumne.frase;
+
       document.getElementById("nombre").textContent =
-        nombreAleatorio;
+        alumne.nom;
+
+
+      // Mostrar número
 
       document.getElementById("numero").textContent =
-        numeroAleatorio;
+        numeroAleatori;
+
+
+      // Actualitzar les llistes
 
       actualizarListas();
 
