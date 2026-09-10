@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ca">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Selector aleatorio</title>
+  <title>Selector aleatori</title>
 
   <style>
     body {
@@ -46,13 +46,13 @@
 
 <body>
 
-  <h1>Selector aleatorio</h1>
+  <h1>Selector aleatori</h1>
 
   <div id="nombre">---</div>
 
   <div id="numero">---</div>
 
-  <div id="quedan">Quedan 27 alumnos</div>
+  <div id="quedan">Queden 27 alumnes</div>
 
   <button onclick="generar()">Generar</button>
 
@@ -92,21 +92,21 @@
 
     function generar() {
 
-      // Si ya han salido todos, empieza una nueva ronda
+      // Si ja han sortit tots, comença una nova ronda
       if (nombresDisponibles.length === 0) {
         nombresDisponibles = [...nombres];
       }
 
-      // Elegir alumno al azar
+      // Escollir un alumne a l'atzar
       const indice = Math.floor(Math.random() * nombresDisponibles.length);
 
-      // Eliminarlo de la lista para que no vuelva a salir
+      // Eliminar-lo de la llista perquè no torni a sortir
       const nombreAleatorio = nombresDisponibles.splice(indice, 1)[0];
 
-      // Generar número aleatorio entre -5 y +5
+      // Generar un número aleatori entre -5 i +5
       const numero = Math.random() * 10 - 5;
 
-      // Mostrar siempre el signo + para los positivos
+      // Mostrar sempre el signe + en els positius
       const numeroAleatorio =
         numero >= 0
           ? "+" + numero.toFixed(2)
@@ -115,16 +115,16 @@
       document.getElementById("nombre").textContent = nombreAleatorio;
       document.getElementById("numero").textContent = numeroAleatorio;
 
-      // Mostrar cuántos quedan
+      // Mostrar quants en queden
       if (nombresDisponibles.length === 0) {
         document.getElementById("quedan").textContent =
-          "¡Han salido todos! La próxima vez comienza una nueva ronda.";
+          "Ja han sortit tots! La propera vegada comença una nova ronda.";
       } else if (nombresDisponibles.length === 1) {
         document.getElementById("quedan").textContent =
-          "Queda 1 alumno";
+          "Queda 1 alumne";
       } else {
         document.getElementById("quedan").textContent =
-          "Quedan " + nombresDisponibles.length + " alumnos";
+          "Queden " + nombresDisponibles.length + " alumnes";
       }
     }
 
