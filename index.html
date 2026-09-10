@@ -16,7 +16,8 @@
       font-family: "Segoe UI", Arial, sans-serif;
       margin: 0;
       background-color: #f7f7f5;
-      min-height: 100vh;
+      height: 100vh;
+      overflow: hidden;
     }
 
     .pagina {
@@ -24,8 +25,8 @@
       grid-template-columns: 260px 1fr 260px;
       gap: 30px;
       width: 100%;
-      min-height: 100vh;
-      padding: 30px;
+      height: 100vh;
+      padding: 25px;
       align-items: center;
     }
 
@@ -36,7 +37,7 @@
       border: 1px solid #cfcfcf;
       border-radius: 14px;
       padding: 18px;
-      height: 90vh;
+      height: 92vh;
       overflow-y: auto;
       box-shadow: 0 4px 14px rgba(0,0,0,0.06);
     }
@@ -58,68 +59,98 @@
 
     .centro {
       text-align: center;
+      height: 92vh;
+
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+
       min-width: 0;
     }
 
     h1 {
       font-size: 50px;
-      margin: 0 0 25px 0;
+      margin: 0 0 15px 0;
     }
 
     #nombre {
       font-size: 72px;
       font-weight: 700;
-      min-height: 90px;
-      margin-bottom: 30px;
+      min-height: 85px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 20px;
     }
 
     h2 {
       font-size: 38px;
-      margin: 0 0 25px 0;
+      margin: 0 0 10px 0;
     }
 
     #numero {
       font-size: 100px;
       font-weight: 700;
       min-height: 115px;
-      margin-bottom: 20px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 10px;
     }
+
+    /* BOMBO */
 
     #bombo {
       display: none;
-      width: 180px;
-      max-height: 180px;
+      width: 300px;
+      height: 230px;
       object-fit: contain;
-      margin: 10px 0 30px 0;
+      margin: 0 0 20px 0;
     }
+
+    /* BOTÓ */
 
     button {
       font-size: 30px;
-      padding: 17px 48px;
+      padding: 15px 48px;
       cursor: pointer;
+
       border-radius: 12px;
       border: none;
+
       background-color: #222;
       color: white;
+
+      transition: 0.2s;
     }
 
     button:hover {
       background-color: #444;
+      transform: translateY(-1px);
     }
 
     button:disabled {
-      opacity: 0.6;
+      opacity: 0.55;
       cursor: default;
+      transform: none;
     }
+
+    /* PANTALLES PETITES */
 
     @media (max-width: 900px) {
 
+      body {
+        overflow: auto;
+      }
+
       .pagina {
         grid-template-columns: 1fr;
+        height: auto;
       }
 
       .cuadro {
@@ -128,6 +159,7 @@
 
       .centro {
         order: -1;
+        height: auto;
       }
 
     }
@@ -142,8 +174,15 @@
     <!-- ESQUERRA -->
 
     <div class="cuadro">
+
       <h3>Ja han sortit</h3>
-      <div id="hanSortit" class="lista-nombres">—</div>
+
+      <div
+        id="hanSortit"
+        class="lista-nombres">
+        —
+      </div>
+
     </div>
 
 
@@ -151,17 +190,36 @@
 
     <div class="centro">
 
-      <h1 id="frase">Ara li toca a...</h1>
+      <h1 id="frase">
+        Ara li toca a...
+      </h1>
 
-      <div id="nombre">---</div>
+      <div id="nombre">
+        —
+      </div>
 
-      <h2>Has de col·locar el número...</h2>
 
-      <div id="numero">---</div>
+      <h2>
+        Has de col·locar el número...
+      </h2>
 
-      <img id="bombo" src="bingo.gif" alt="Bombo de bingo">
+      <div id="numero">
+        —
+      </div>
 
-      <button id="boton" onclick="generar()">Generar</button>
+
+      <img
+        id="bombo"
+        src="bingo.gif"
+        alt="Bombo de bingo"
+      >
+
+
+      <button
+        id="boton"
+        onclick="generar()">
+        Generar
+      </button>
 
     </div>
 
@@ -169,8 +227,14 @@
     <!-- DRETA -->
 
     <div class="cuadro">
+
       <h3>Queden per sortir</h3>
-      <div id="queden" class="lista-nombres"></div>
+
+      <div
+        id="queden"
+        class="lista-nombres">
+      </div>
+
     </div>
 
   </div>
@@ -179,6 +243,7 @@
   <script>
 
     const alumnes = [
+
       { nom: "Jan", frase: "Ara li toca al" },
       { nom: "Jaden", frase: "Ara li toca al" },
       { nom: "Laura", frase: "Ara li toca a la" },
@@ -206,6 +271,7 @@
       { nom: "Amy", frase: "Ara li toca a l'" },
       { nom: "Taoming", frase: "Ara li toca al" },
       { nom: "Hengji", frase: "Ara li toca al" }
+
     ];
 
 
@@ -214,35 +280,61 @@
       const numeros = [];
 
       for (let i = -500; i <= 500; i++) {
+
         numeros.push(i / 100);
+
       }
 
       return numeros;
+
     }
 
 
     let alumnesDisponibles = [...alumnes];
+
     let alumnesSortits = [];
+
     let numerosDisponibles = crearNumeros();
 
 
     function actualizarListas() {
 
-      const hanSortit = document.getElementById("hanSortit");
-      const queden = document.getElementById("queden");
+      const hanSortit =
+        document.getElementById("hanSortit");
+
+      const queden =
+        document.getElementById("queden");
+
 
       if (alumnesSortits.length === 0) {
+
         hanSortit.innerHTML = "—";
-      } else {
-        hanSortit.innerHTML =
-          alumnesSortits.map(alumne => alumne.nom).join("<br>");
+
       }
 
+      else {
+
+        hanSortit.innerHTML =
+          alumnesSortits
+            .map(alumne => alumne.nom)
+            .join("<br>");
+
+      }
+
+
       if (alumnesDisponibles.length === 0) {
+
         queden.innerHTML = "—";
-      } else {
+
+      }
+
+      else {
+
         queden.innerHTML =
-          alumnesDisponibles.map(alumne => alumne.nom).join("<br>");
+          alumnesDisponibles
+            .map(alumne => alumne.nom)
+            .join("<br>");
+
       }
 
     }
@@ -250,76 +342,135 @@
 
     function generar() {
 
-      const boton = document.getElementById("boton");
-      const bombo = document.getElementById("bombo");
-      const nombre = document.getElementById("nombre");
-      const numero = document.getElementById("numero");
-      const frase = document.getElementById("frase");
+      const boton =
+        document.getElementById("boton");
+
+      const bombo =
+        document.getElementById("bombo");
+
+      const nombre =
+        document.getElementById("nombre");
+
+      const numero =
+        document.getElementById("numero");
+
+      const frase =
+        document.getElementById("frase");
+
+
+      /* Bloquejar el botó */
 
       boton.disabled = true;
 
-      // Amagar el resultat anterior
-      frase.textContent = "Ara li toca a...";
-      nombre.textContent = "???";
-      numero.textContent = "???";
 
-      // Mostrar el bombo
+      /* Amagar el resultat anterior */
+
+      frase.textContent =
+        "Ara li toca...";
+
+      nombre.textContent = "";
+
+      numero.textContent = "";
+
+
+      /* Mostrar el bombo */
+
       bombo.style.display = "block";
 
 
+      /* Esperar 3 segons */
+
       setTimeout(function() {
+
+
+        /* Nova ronda */
 
         if (alumnesDisponibles.length === 0) {
 
-          alumnesDisponibles = [...alumnes];
+          alumnesDisponibles =
+            [...alumnes];
+
           alumnesSortits = [];
-          numerosDisponibles = crearNumeros();
+
+          numerosDisponibles =
+            crearNumeros();
 
         }
 
 
-        // Escollir alumne
+        /* Alumne aleatori */
 
         const indiceAlumne =
-          Math.floor(Math.random() * alumnesDisponibles.length);
+          Math.floor(
+            Math.random() *
+            alumnesDisponibles.length
+          );
+
 
         const alumne =
-          alumnesDisponibles.splice(indiceAlumne, 1)[0];
+          alumnesDisponibles.splice(
+            indiceAlumne,
+            1
+          )[0];
+
 
         alumnesSortits.push(alumne);
 
 
-        // Escollir número no repetit
+        /* Número aleatori no repetit */
 
         const indiceNumero =
-          Math.floor(Math.random() * numerosDisponibles.length);
+          Math.floor(
+            Math.random() *
+            numerosDisponibles.length
+          );
+
 
         const numeroEscollit =
-          numerosDisponibles.splice(indiceNumero, 1)[0];
+          numerosDisponibles.splice(
+            indiceNumero,
+            1
+          )[0];
 
+
+        /* Format del número */
 
         const numeroAleatori =
+
           numeroEscollit >= 0
-            ? "+" + numeroEscollit.toFixed(2)
-            : numeroEscollit.toFixed(2);
+
+          ? "+" +
+            numeroEscollit.toFixed(2)
+
+          : numeroEscollit.toFixed(2);
 
 
-        // Amagar el bombo
+        /* Amagar bombo */
+
         bombo.style.display = "none";
 
 
-        // Mostrar resultat
+        /* Mostrar resultat */
 
-        frase.textContent = alumne.frase;
-        nombre.textContent = alumne.nom;
-        numero.textContent = numeroAleatori;
+        frase.textContent =
+          alumne.frase;
+
+        nombre.textContent =
+          alumne.nom;
+
+        numero.textContent =
+          numeroAleatori;
 
 
         actualizarListas();
 
+
+        /* Reactivar botó */
+
         boton.disabled = false;
 
-      }, 1500);
+
+      }, 3000);
 
     }
 
