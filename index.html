@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Ara li toca al...</title>
+  <title>Ara li toca a...</title>
 
   <style>
 
@@ -19,8 +19,6 @@
       min-height: 100vh;
     }
 
-    /* Estructura principal: esquerra - centre - dreta */
-
     .pagina {
       display: grid;
       grid-template-columns: 250px 1fr 250px;
@@ -30,8 +28,6 @@
       padding: 30px;
       align-items: center;
     }
-
-    /* Quadres laterals */
 
     .cuadro {
       background-color: white;
@@ -54,8 +50,6 @@
       line-height: 1.45;
       text-align: center;
     }
-
-    /* Part central */
 
     .centro {
       text-align: center;
@@ -102,8 +96,6 @@
       background-color: #e8e8e8;
     }
 
-    /* Adaptació per a pantalles petites */
-
     @media (max-width: 900px) {
 
       .pagina {
@@ -127,19 +119,14 @@
 
   <div class="pagina">
 
-    <!-- ESQUERRA -->
-
     <div class="cuadro">
       <h3>Ja han sortit</h3>
       <div id="hanSortit" class="lista-nombres">—</div>
     </div>
 
-
-    <!-- CENTRE -->
-
     <div class="centro">
 
-      <h1>Ara li toca al...</h1>
+      <h1>Ara li toca a...</h1>
 
       <div id="nombre">---</div>
 
@@ -151,16 +138,12 @@
 
     </div>
 
-
-    <!-- DRETA -->
-
     <div class="cuadro">
       <h3>Queden per sortir</h3>
       <div id="queden" class="lista-nombres"></div>
     </div>
 
   </div>
-
 
   <script>
 
@@ -194,8 +177,19 @@
       "Hengji"
     ];
 
+    function crearNumeros() {
+      const numeros = [];
+
+      for (let i = -500; i <= 500; i++) {
+        numeros.push(i / 100);
+      }
+
+      return numeros;
+    }
+
     let nombresDisponibles = [...nombres];
     let nombresSalidos = [];
+    let numerosDisponibles = crearNumeros();
 
 
     function actualizarListas() {
@@ -221,38 +215,38 @@
     function generar() {
 
       // Si ja han sortit tots, començar una nova ronda
-
       if (nombresDisponibles.length === 0) {
         nombresDisponibles = [...nombres];
         nombresSalidos = [];
+        numerosDisponibles = crearNumeros();
       }
 
 
       // Escollir un alumne a l'atzar
-
-      const indice =
+      const indiceNombre =
         Math.floor(Math.random() * nombresDisponibles.length);
 
       const nombreAleatorio =
-        nombresDisponibles.splice(indice, 1)[0];
-
-
-      // Afegir-lo als alumnes que ja han sortit
+        nombresDisponibles.splice(indiceNombre, 1)[0];
 
       nombresSalidos.push(nombreAleatorio);
 
 
-      // Generar número entre -5 i +5
+      // Escollir un número que encara no hagi sortit
+      const indiceNumero =
+        Math.floor(Math.random() * numerosDisponibles.length);
 
-      const numero = Math.random() * 10 - 5;
+      const numero =
+        numerosDisponibles.splice(indiceNumero, 1)[0];
 
+
+      // Mostrar sempre dos decimals
+      // i el signe + en els positius
       const numeroAleatorio =
         numero >= 0
           ? "+" + numero.toFixed(2)
           : numero.toFixed(2);
 
-
-      // Mostrar resultat
 
       document.getElementById("nombre").textContent =
         nombreAleatorio;
@@ -260,15 +254,10 @@
       document.getElementById("numero").textContent =
         numeroAleatorio;
 
-
-      // Actualitzar els quadres laterals
-
       actualizarListas();
 
     }
 
-
-    // Mostrar inicialment tots els alumnes a la dreta
 
     actualizarListas();
 
