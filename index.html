@@ -10,7 +10,7 @@
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      margin-top: 80px;
+      margin: 40px;
       background-color: #f5f5f5;
     }
 
@@ -20,13 +20,13 @@
 
     h2 {
       font-size: 28px;
-      margin-top: 40px;
+      margin-top: 30px;
     }
 
     #nombre {
       font-size: 50px;
       font-weight: bold;
-      margin: 30px 20px;
+      margin: 25px 20px;
     }
 
     #numero {
@@ -35,17 +35,42 @@
       margin: 20px;
     }
 
-    #quedan {
-      font-size: 20px;
-      margin: 30px;
-    }
-
     button {
       font-size: 26px;
       padding: 15px 35px;
       cursor: pointer;
       border-radius: 10px;
+      margin-bottom: 30px;
     }
+
+    .contenedor-listas {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .cuadro {
+      background-color: white;
+      border: 2px solid #333;
+      border-radius: 10px;
+      width: 320px;
+      min-height: 250px;
+      padding: 15px;
+      box-sizing: border-box;
+    }
+
+    .cuadro h3 {
+      font-size: 24px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+    }
+
+    .lista-nombres {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
   </style>
 </head>
 
@@ -59,9 +84,21 @@
 
   <div id="numero">---</div>
 
-  <div id="quedan">Queden 27 alumnes</div>
-
   <button onclick="generar()">Generar</button>
+
+  <div class="contenedor-listas">
+
+    <div class="cuadro">
+      <h3>Ja han sortit</h3>
+      <div id="hanSortit" class="lista-nombres">—</div>
+    </div>
+
+    <div class="cuadro">
+      <h3>Queden per sortir</h3>
+      <div id="queden" class="lista-nombres"></div>
+    </div>
+
+  </div>
 
   <script>
 
@@ -96,19 +133,42 @@
     ];
 
     let nombresDisponibles = [...nombres];
+    let nombresSalidos = [];
+
+    function actualizarListas() {
+
+      const hanSortit = document.getElementById("hanSortit");
+      const queden = document.getElementById("queden");
+
+      if (nombresSalidos.length === 0) {
+        hanSortit.innerHTML = "—";
+      } else {
+        hanSortit.innerHTML = nombresSalidos.join("<br>");
+      }
+
+      if (nombresDisponibles.length === 0) {
+        queden.innerHTML = "—";
+      } else {
+        queden.innerHTML = nombresDisponibles.join("<br>");
+      }
+    }
 
     function generar() {
 
       // Si ja han sortit tots, comença una nova ronda
       if (nombresDisponibles.length === 0) {
         nombresDisponibles = [...nombres];
+        nombresSalidos = [];
       }
 
       // Escollir un alumne a l'atzar
       const indice = Math.floor(Math.random() * nombresDisponibles.length);
 
-      // Eliminar-lo de la llista perquè no torni a sortir
+      // Treure l'alumne de la llista dels que queden
       const nombreAleatorio = nombresDisponibles.splice(indice, 1)[0];
+
+      // Afegir-lo a la llista dels que ja han sortit
+      nombresSalidos.push(nombreAleatorio);
 
       // Generar un número aleatori entre -5 i +5
       const numero = Math.random() * 10 - 5;
@@ -123,18 +183,12 @@
       document.getElementById("nombre").textContent = nombreAleatorio;
       document.getElementById("numero").textContent = numeroAleatorio;
 
-      // Mostrar quants alumnes queden
-      if (nombresDisponibles.length === 0) {
-        document.getElementById("quedan").textContent =
-          "Ja han sortit tots! La propera vegada comença una nova ronda.";
-      } else if (nombresDisponibles.length === 1) {
-        document.getElementById("quedan").textContent =
-          "Queda 1 alumne";
-      } else {
-        document.getElementById("quedan").textContent =
-          "Queden " + nombresDisponibles.length + " alumnes";
-      }
+      // Actualitzar els dos quadres
+      actualizarListas();
     }
+
+    // Mostrar tots els alumnes inicialment a la dreta
+    actualizarListas();
 
   </script>
 
