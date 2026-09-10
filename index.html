@@ -72,16 +72,12 @@
       text-align: center;
     }
 
-    /* RESULTAT */
-
-    #zonaResultat {
-      width: 100%;
-    }
+    /* NOM DE L'ALUMNE */
 
     #frase {
       font-size: 52px;
       font-weight: 700;
-      margin: 0 0 25px 0;
+      margin: 0 0 20px 0;
     }
 
     #nombre {
@@ -93,7 +89,13 @@
       align-items: center;
       justify-content: center;
 
-      margin-bottom: 35px;
+      margin-bottom: 25px;
+    }
+
+    /* ZONA DEL NÚMERO */
+
+    #zonaNumero {
+      width: 100%;
     }
 
     h2 {
@@ -111,8 +113,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-
-      margin-bottom: 25px;
     }
 
     /* BOMBO */
@@ -121,20 +121,23 @@
       display: none;
 
       width: 100%;
+
       flex-direction: column;
       align-items: center;
       justify-content: center;
+
+      margin-top: 5px;
     }
 
     #textoBombo {
-      font-size: 46px;
+      font-size: 42px;
       font-weight: 700;
-      margin-bottom: 55px;
+      margin-bottom: 25px;
     }
 
     #bombo {
-      width: 440px;
-      height: 440px;
+      width: 390px;
+      height: 390px;
       object-fit: contain;
       display: block;
     }
@@ -142,7 +145,7 @@
     /* BOTÓN */
 
     button {
-      margin-top: 30px;
+      margin-top: 25px;
 
       font-size: 34px;
       padding: 18px 65px;
@@ -204,9 +207,13 @@
         font-size: 95px;
       }
 
+      #textoBombo {
+        font-size: 35px;
+      }
+
       #bombo {
-        width: 370px;
-        height: 370px;
+        width: 340px;
+        height: 340px;
       }
 
     }
@@ -240,26 +247,14 @@
     <div class="centro">
 
 
-      <!-- RESULTAT -->
+      <!-- NOM -->
 
-      <div id="zonaResultat">
+      <div id="frase">
+        Ara li toca a...
+      </div>
 
-        <div id="frase">
-          Ara li toca a...
-        </div>
-
-        <div id="nombre">
-          —
-        </div>
-
-        <h2>
-          Has de col·locar el número...
-        </h2>
-
-        <div id="numero">
-          —
-        </div>
-
+      <div id="nombre">
+        —
       </div>
 
 
@@ -268,7 +263,7 @@
       <div id="zonaBombo">
 
         <div id="textoBombo">
-          Has de col·locar el número...
+          Preparant el número...
         </div>
 
         <img
@@ -276,6 +271,21 @@
           src="bingo.gif"
           alt="Bombo de bingo"
         >
+
+      </div>
+
+
+      <!-- NÚMERO -->
+
+      <div id="zonaNumero">
+
+        <h2>
+          Has de col·locar el número...
+        </h2>
+
+        <div id="numero">
+          —
+        </div>
 
       </div>
 
@@ -358,9 +368,7 @@
 
 
     let alumnesDisponibles = [...alumnes];
-
     let alumnesSortits = [];
-
     let numerosDisponibles = crearNumeros();
 
 
@@ -408,66 +416,74 @@
       const boton =
         document.getElementById("boton");
 
-      const zonaResultat =
-        document.getElementById("zonaResultat");
-
       const zonaBombo =
         document.getElementById("zonaBombo");
 
+      const zonaNumero =
+        document.getElementById("zonaNumero");
 
-      /* Desactivar botó */
+
+      /* DESACTIVAR BOTÓ */
 
       boton.disabled = true;
 
 
-      /* Ocultar resultat anterior */
+      /* NOVA RONDA */
 
-      zonaResultat.style.display = "none";
+      if (alumnesDisponibles.length === 0) {
+
+        alumnesDisponibles = [...alumnes];
+        alumnesSortits = [];
+        numerosDisponibles = crearNumeros();
+
+      }
 
 
-      /* Mostrar bombo */
+      /* 1. ESCOLLIR I MOSTRAR L'ALUMNE */
+
+      const indiceAlumne =
+        Math.floor(
+          Math.random() *
+          alumnesDisponibles.length
+        );
+
+
+      const alumne =
+        alumnesDisponibles.splice(
+          indiceAlumne,
+          1
+        )[0];
+
+
+      alumnesSortits.push(alumne);
+
+
+      document.getElementById("frase").textContent =
+        alumne.frase;
+
+      document.getElementById("nombre").textContent =
+        alumne.nom;
+
+
+      actualizarListas();
+
+
+      /* 2. AMAGAR EL NÚMERO ANTERIOR */
+
+      zonaNumero.style.display = "none";
+
+
+      /* 3. MOSTRAR EL BOMBO */
 
       zonaBombo.style.display = "flex";
 
 
-      /* Esperar 3 segons */
+      /* 4. ESPERAR 3 SEGONS */
 
       setTimeout(function() {
 
 
-        /* Reiniciar quan han sortit tots */
-
-        if (alumnesDisponibles.length === 0) {
-
-          alumnesDisponibles = [...alumnes];
-
-          alumnesSortits = [];
-
-          numerosDisponibles = crearNumeros();
-
-        }
-
-
-        /* Escollir alumne */
-
-        const indiceAlumne =
-          Math.floor(
-            Math.random() *
-            alumnesDisponibles.length
-          );
-
-
-        const alumne =
-          alumnesDisponibles.splice(
-            indiceAlumne,
-            1
-          )[0];
-
-
-        alumnesSortits.push(alumne);
-
-
-        /* Escollir número no repetit */
+        /* ESCOLLIR NÚMERO NO REPETIT */
 
         const indiceNumero =
           Math.floor(
@@ -483,7 +499,7 @@
           )[0];
 
 
-        /* Formatar número */
+        /* FORMATAR NÚMERO */
 
         const numeroAleatori =
           numeroEscollit >= 0
@@ -491,32 +507,20 @@
             : numeroEscollit.toFixed(2);
 
 
-        /* Mostrar resultat */
-
-        document.getElementById("frase").textContent =
-          alumne.frase;
-
-        document.getElementById("nombre").textContent =
-          alumne.nom;
-
-        document.getElementById("numero").textContent =
-          numeroAleatori;
-
-
-        /* Amagar bombo */
+        /* 5. AMAGAR BOMBO */
 
         zonaBombo.style.display = "none";
 
 
-        /* Mostrar resultat */
+        /* 6. MOSTRAR NÚMERO */
 
-        zonaResultat.style.display = "block";
+        document.getElementById("numero").textContent =
+          numeroAleatori;
+
+        zonaNumero.style.display = "block";
 
 
-        actualizarListas();
-
-
-        /* Reactivar botó */
+        /* REACTIVAR BOTÓ */
 
         boton.disabled = false;
 
