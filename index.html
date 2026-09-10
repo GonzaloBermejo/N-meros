@@ -7,68 +7,117 @@
   <title>Ara li toca a...</title>
 
   <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 40px;
+      margin: 0;
       background-color: #f5f5f5;
+      min-height: 100vh;
     }
 
-    h1 {
-      font-size: 36px;
-    }
+    /* Estructura principal: esquerra - centre - dreta */
 
-    h2 {
-      font-size: 28px;
-      margin-top: 30px;
-    }
-
-    #nombre {
-      font-size: 50px;
-      font-weight: bold;
-      margin: 25px 20px;
-    }
-
-    #numero {
-      font-size: 80px;
-      font-weight: bold;
-      margin: 20px;
-    }
-
-    button {
-      font-size: 26px;
-      padding: 15px 35px;
-      cursor: pointer;
-      border-radius: 10px;
-      margin-bottom: 30px;
-    }
-
-    .contenedor-listas {
-      display: flex;
-      justify-content: center;
+    .pagina {
+      display: grid;
+      grid-template-columns: 250px 1fr 250px;
       gap: 30px;
-      margin-top: 20px;
+      width: 100%;
+      min-height: 100vh;
+      padding: 30px;
+      align-items: center;
     }
+
+    /* Quadres laterals */
 
     .cuadro {
       background-color: white;
       border: 2px solid #333;
-      border-radius: 10px;
-      width: 320px;
-      min-height: 250px;
+      border-radius: 12px;
       padding: 15px;
-      box-sizing: border-box;
+      height: 90vh;
+      overflow-y: auto;
     }
 
     .cuadro h3 {
-      font-size: 24px;
+      text-align: center;
+      font-size: 21px;
       margin-top: 5px;
       margin-bottom: 15px;
     }
 
     .lista-nombres {
-      font-size: 18px;
-      line-height: 1.6;
+      font-size: 16px;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    /* Part central */
+
+    .centro {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 44px;
+      margin: 0 0 35px 0;
+    }
+
+    #nombre {
+      font-size: 60px;
+      font-weight: bold;
+      min-height: 75px;
+      margin-bottom: 40px;
+    }
+
+    h2 {
+      font-size: 32px;
+      margin: 0 0 35px 0;
+    }
+
+    #numero {
+      font-size: 85px;
+      font-weight: bold;
+      min-height: 100px;
+      margin-bottom: 35px;
+    }
+
+    button {
+      font-size: 28px;
+      padding: 16px 45px;
+      cursor: pointer;
+      border-radius: 12px;
+      border: 2px solid #777;
+      background-color: white;
+    }
+
+    button:hover {
+      background-color: #e8e8e8;
+    }
+
+    /* Adaptació per a pantalles petites */
+
+    @media (max-width: 900px) {
+
+      .pagina {
+        grid-template-columns: 1fr;
+      }
+
+      .cuadro {
+        height: auto;
+      }
+
+      .centro {
+        order: -1;
+      }
+
     }
 
   </style>
@@ -76,22 +125,34 @@
 
 <body>
 
-  <h1>Ara li toca a...</h1>
+  <div class="pagina">
 
-  <div id="nombre">---</div>
-
-  <h2>Has de col·locar el número...</h2>
-
-  <div id="numero">---</div>
-
-  <button onclick="generar()">Generar</button>
-
-  <div class="contenedor-listas">
+    <!-- ESQUERRA -->
 
     <div class="cuadro">
       <h3>Ja han sortit</h3>
       <div id="hanSortit" class="lista-nombres">—</div>
     </div>
+
+
+    <!-- CENTRE -->
+
+    <div class="centro">
+
+      <h1>Ara li toca a...</h1>
+
+      <div id="nombre">---</div>
+
+      <h2>Has de col·locar el número...</h2>
+
+      <div id="numero">---</div>
+
+      <button onclick="generar()">Generar</button>
+
+    </div>
+
+
+    <!-- DRETA -->
 
     <div class="cuadro">
       <h3>Queden per sortir</h3>
@@ -99,6 +160,7 @@
     </div>
 
   </div>
+
 
   <script>
 
@@ -135,6 +197,7 @@
     let nombresDisponibles = [...nombres];
     let nombresSalidos = [];
 
+
     function actualizarListas() {
 
       const hanSortit = document.getElementById("hanSortit");
@@ -151,43 +214,62 @@
       } else {
         queden.innerHTML = nombresDisponibles.join("<br>");
       }
+
     }
+
 
     function generar() {
 
-      // Si ja han sortit tots, comença una nova ronda
+      // Si ja han sortit tots, començar una nova ronda
+
       if (nombresDisponibles.length === 0) {
         nombresDisponibles = [...nombres];
         nombresSalidos = [];
       }
 
+
       // Escollir un alumne a l'atzar
-      const indice = Math.floor(Math.random() * nombresDisponibles.length);
 
-      // Treure l'alumne de la llista dels que queden
-      const nombreAleatorio = nombresDisponibles.splice(indice, 1)[0];
+      const indice =
+        Math.floor(Math.random() * nombresDisponibles.length);
 
-      // Afegir-lo a la llista dels que ja han sortit
+      const nombreAleatorio =
+        nombresDisponibles.splice(indice, 1)[0];
+
+
+      // Afegir-lo als alumnes que ja han sortit
+
       nombresSalidos.push(nombreAleatorio);
 
-      // Generar un número aleatori entre -5 i +5
+
+      // Generar número entre -5 i +5
+
       const numero = Math.random() * 10 - 5;
 
-      // Mostrar sempre el signe + en els positius
       const numeroAleatorio =
         numero >= 0
           ? "+" + numero.toFixed(2)
           : numero.toFixed(2);
 
-      // Mostrar el nom i el número
-      document.getElementById("nombre").textContent = nombreAleatorio;
-      document.getElementById("numero").textContent = numeroAleatorio;
 
-      // Actualitzar els dos quadres
+      // Mostrar resultat
+
+      document.getElementById("nombre").textContent =
+        nombreAleatorio;
+
+      document.getElementById("numero").textContent =
+        numeroAleatorio;
+
+
+      // Actualitzar els quadres laterals
+
       actualizarListas();
+
     }
 
-    // Mostrar tots els alumnes inicialment a la dreta
+
+    // Mostrar inicialment tots els alumnes a la dreta
+
     actualizarListas();
 
   </script>
