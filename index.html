@@ -85,8 +85,8 @@
     }
 
     #imatgeNom {
-      width: 330px;
-      max-height: 300px;
+      width: 440px;
+      max-height: 410px;
       object-fit: contain;
       margin-bottom: 30px;
     }
@@ -94,7 +94,7 @@
     /* BARRA DE PROGRÉS */
 
     .barra-contenidor {
-      width: 420px;
+      width: 440px;
       max-width: 80%;
       height: 18px;
       background-color: #e4e4e4;
@@ -263,7 +263,8 @@
       }
 
       #imatgeNom {
-        width: 280px;
+        width: 360px;
+        max-height: 340px;
       }
 
       #bombo {
@@ -290,9 +291,7 @@
 
       <h3>Ja han sortit</h3>
 
-      <div
-        id="hanSortit"
-        class="lista-nombres">
+      <div id="hanSortit" class="lista-nombres">
         —
       </div>
 
@@ -387,12 +386,9 @@
 
       <!-- BOTÓ -->
 
-      <button
-        id="boton"
-        onclick="generar()">
+      <button id="boton" onclick="generar()">
         Generar
       </button>
-
 
     </div>
 
@@ -403,10 +399,7 @@
 
       <h3>Queden per sortir</h3>
 
-      <div
-        id="queden"
-        class="lista-nombres">
-      </div>
+      <div id="queden" class="lista-nombres"></div>
 
     </div>
 
@@ -571,7 +564,7 @@
       }, 50);
 
 
-      /* DESPRÉS DE 2,5 SEGONS: MOSTRAR NOM */
+      /* MOSTRAR NOM */
 
       setTimeout(function() {
 
@@ -596,12 +589,12 @@
         actualizarListas();
 
 
-        /* DEIXAR VEURE EL NOM 1,5 SEGONS */
+        /* DEIXAR VEURE EL NOM */
 
         setTimeout(function() {
 
 
-          /* FASE 3: BOMBO */
+          /* MOSTRAR NOM + BOMBO */
 
           ocultarFases();
 
@@ -636,7 +629,7 @@
                 : numeroEscollit.toFixed(2);
 
 
-            /* MOSTRAR RESULTAT FINAL */
+            /* RESULTAT FINAL */
 
             ocultarFases();
 
