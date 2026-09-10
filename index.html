@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Selector aleatori</title>
+  <title>Ara li toca a...</title>
 
   <style>
     body {
@@ -18,10 +18,15 @@
       font-size: 36px;
     }
 
+    h2 {
+      font-size: 28px;
+      margin-top: 40px;
+    }
+
     #nombre {
       font-size: 50px;
       font-weight: bold;
-      margin: 40px 20px 20px;
+      margin: 30px 20px;
     }
 
     #numero {
@@ -32,7 +37,7 @@
 
     #quedan {
       font-size: 20px;
-      margin: 20px;
+      margin: 30px;
     }
 
     button {
@@ -46,9 +51,11 @@
 
 <body>
 
-  <h1>Selector aleatori</h1>
+  <h1>Ara li toca a...</h1>
 
   <div id="nombre">---</div>
+
+  <h2>Has de col·locar el número...</h2>
 
   <div id="numero">---</div>
 
@@ -59,33 +66,33 @@
   <script>
 
     const nombres = [
-      "Jan Abajo Hou",
-      "Jaden Steven Andrade Sánchez",
-      "Laura Arbat Ruíz",
-      "Hugo Barroso Martínez",
-      "Faustino Caporale",
-      "Tamara Cherif García",
-      "María Forts Marías",
-      "Silke García Martínez",
-      "Lila García García",
-      "Naila Gracia Werckmeister",
-      "Jad Gridda",
-      "Ilina Hu",
-      "Martí Iglesias Rico",
-      "Laia Mora Moreno",
-      "Aleksandr Muzykantsky",
-      "Andrew Matías Navas González",
-      "Dominika Osman",
-      "Albert Quintana Vega",
-      "Varvara Rabetskaya",
-      "Luz Rodríguez Jaen",
-      "Aliha Saleem",
-      "Andrew Jeremías Sánchez Riveros",
-      "Ellen Zooey Sánchez Ramos",
-      "Redhen Dwayne Sandoval Asilo",
-      "Amy Sueiro",
-      "Taoming Ye",
-      "Hengji Zhang"
+      "Jan",
+      "Jaden",
+      "Laura",
+      "Hugo",
+      "Faustino",
+      "Tamara",
+      "María",
+      "Silke",
+      "Lila",
+      "Naila",
+      "Jad",
+      "Ilina",
+      "Martí",
+      "Laia",
+      "Aleksandr",
+      "Andrew Matías",
+      "Dominika",
+      "Albert",
+      "Varvara",
+      "Luz",
+      "Aliha",
+      "Andrew Jeremías",
+      "Ellen",
+      "Redhen",
+      "Amy",
+      "Taoming",
+      "Hengji"
     ];
 
     let nombresDisponibles = [...nombres];
@@ -112,10 +119,11 @@
           ? "+" + numero.toFixed(2)
           : numero.toFixed(2);
 
+      // Mostrar el nom i el número
       document.getElementById("nombre").textContent = nombreAleatorio;
       document.getElementById("numero").textContent = numeroAleatorio;
 
-      // Mostrar quants en queden
+      // Mostrar quants alumnes queden
       if (nombresDisponibles.length === 0) {
         document.getElementById("quedan").textContent =
           "Ja han sortit tots! La propera vegada comença una nova ronda.";
