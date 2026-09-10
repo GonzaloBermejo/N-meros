@@ -59,120 +59,80 @@
 
     .centro {
       height: 90vh;
-
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-
       text-align: center;
     }
 
-    /* FASE SORTEIG NOM */
+    /* FASES */
 
-    #faseNom {
+    .fase {
       display: none;
+      width: 100%;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      width: 100%;
     }
 
-    #textoNom {
-      font-size: 42px;
-      font-weight: 700;
-      margin-bottom: 25px;
+    #faseInicial {
+      display: flex;
     }
+
+    /* TÍTOLS */
+
+    .titulo-fase {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
+
+    /* IMATGES */
 
     #imatgeNom {
       width: 440px;
       max-height: 410px;
       object-fit: contain;
-      margin-bottom: 30px;
+      margin-bottom: 35px;
+    }
+
+    #bombo {
+      width: 440px;
+      max-height: 410px;
+      object-fit: contain;
+      margin-bottom: 35px;
     }
 
     /* BARRA DE PROGRÉS */
 
     .barra-contenidor {
-      width: 440px;
-      max-width: 80%;
-      height: 18px;
+      width: 550px;
+      max-width: 85%;
+      height: 22px;
       background-color: #e4e4e4;
       border-radius: 20px;
       overflow: hidden;
-      margin-bottom: 25px;
+      margin-bottom: 35px;
     }
 
-    #barraProgres {
+    .barra-progres {
       width: 0%;
       height: 100%;
       background-color: #222;
       border-radius: 20px;
     }
 
-    /* ALUMNE */
+    /* RESULTAT FINAL */
 
-    #faseAlumne {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-    }
-
-    #frase {
-      font-size: 50px;
+    #resultatNom {
+      font-size: 58px;
       font-weight: 700;
-      margin-bottom: 15px;
+      margin-bottom: 35px;
     }
 
-    #nombre {
-      font-size: 76px;
-      font-weight: 750;
-      min-height: 95px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      margin-bottom: 20px;
-    }
-
-    /* FASE BOMBO */
-
-    #faseBombo {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-    }
-
-    #textoBombo {
+    #resultatNumeroText {
       font-size: 40px;
-      font-weight: 700;
-      margin-bottom: 20px;
-    }
-
-    #bombo {
-      width: 390px;
-      height: 330px;
-      object-fit: contain;
-      display: block;
-    }
-
-    /* NÚMERO */
-
-    #faseNumero {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-    }
-
-    #textoNumero {
-      font-size: 42px;
       font-weight: 700;
       margin-bottom: 10px;
     }
@@ -180,21 +140,9 @@
     #numero {
       font-size: 110px;
       font-weight: 750;
-      min-height: 130px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     /* ESTAT INICIAL */
-
-    #faseInicial {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
 
     #faseInicial h1 {
       font-size: 52px;
@@ -209,7 +157,7 @@
     /* BOTÓ */
 
     button {
-      margin-top: 25px;
+      margin-top: 30px;
       font-size: 34px;
       padding: 18px 65px;
       background-color: #222;
@@ -226,7 +174,7 @@
     }
 
     button:disabled {
-      background-color: #929292;
+      background-color: #999;
       cursor: default;
       transform: none;
     }
@@ -248,28 +196,22 @@
         font-size: 18px;
       }
 
-      #frase {
-        font-size: 42px;
+      .titulo-fase {
+        font-size: 40px;
       }
 
-      #nombre {
-        font-size: 64px;
-      }
-
-      #textoNom,
-      #textoBombo,
-      #textoNumero {
-        font-size: 34px;
-      }
-
-      #imatgeNom {
-        width: 360px;
-        max-height: 340px;
-      }
-
+      #imatgeNom,
       #bombo {
-        width: 330px;
-        height: 280px;
+        width: 360px;
+        max-height: 330px;
+      }
+
+      #resultatNom {
+        font-size: 50px;
+      }
+
+      #resultatNumeroText {
+        font-size: 34px;
       }
 
       #numero {
@@ -305,7 +247,7 @@
 
       <!-- ESTAT INICIAL -->
 
-      <div id="faseInicial">
+      <div id="faseInicial" class="fase">
 
         <h1>Sorteig aleatori</h1>
 
@@ -316,11 +258,11 @@
       </div>
 
 
-      <!-- FASE 1: NOM -->
+      <!-- FASE 1: ESCOLLIR ALUMNE -->
 
-      <div id="faseNom">
+      <div id="faseNom" class="fase">
 
-        <div id="textoNom">
+        <div class="titulo-fase">
           Escollint alumne...
         </div>
 
@@ -331,33 +273,18 @@
         >
 
         <div class="barra-contenidor">
-          <div id="barraProgres"></div>
+          <div id="barraNom" class="barra-progres"></div>
         </div>
 
       </div>
 
 
-      <!-- FASE 2: ALUMNE -->
+      <!-- FASE 2: ESCOLLIR NÚMERO -->
 
-      <div id="faseAlumne">
+      <div id="faseNumero" class="fase">
 
-        <div id="frase">
-          Ara li toca a...
-        </div>
-
-        <div id="nombre">
-          —
-        </div>
-
-      </div>
-
-
-      <!-- FASE 3: BOMBO -->
-
-      <div id="faseBombo">
-
-        <div id="textoBombo">
-          Preparant el número...
+        <div class="titulo-fase">
+          Escollint número...
         </div>
 
         <img
@@ -366,14 +293,22 @@
           alt="Bombo de bingo"
         >
 
+        <div class="barra-contenidor">
+          <div id="barraNumero" class="barra-progres"></div>
+        </div>
+
       </div>
 
 
-      <!-- FASE 4: NÚMERO -->
+      <!-- FASE 3: RESULTAT -->
 
-      <div id="faseNumero">
+      <div id="faseResultat" class="fase">
 
-        <div id="textoNumero">
+        <div id="resultatNom">
+          —
+        </div>
+
+        <div id="resultatNumeroText">
           Has de col·locar el número...
         </div>
 
@@ -386,9 +321,12 @@
 
       <!-- BOTÓ -->
 
-      <button id="boton" onclick="generar()">
+      <button
+        id="boton"
+        onclick="generar()">
         Generar
       </button>
+
 
     </div>
 
@@ -410,33 +348,33 @@
 
     const alumnes = [
 
-      { nom: "Jan", frase: "Ara li toca al" },
-      { nom: "Jaden", frase: "Ara li toca al" },
-      { nom: "Laura", frase: "Ara li toca a la" },
-      { nom: "Hugo", frase: "Ara li toca a l'" },
-      { nom: "Faustino", frase: "Ara li toca al" },
-      { nom: "Tamara", frase: "Ara li toca a la" },
-      { nom: "María", frase: "Ara li toca a la" },
-      { nom: "Silke", frase: "Ara li toca a la" },
-      { nom: "Lila", frase: "Ara li toca a la" },
-      { nom: "Naila", frase: "Ara li toca a la" },
-      { nom: "Jad", frase: "Ara li toca al" },
-      { nom: "Ilina", frase: "Ara li toca a l'" },
-      { nom: "Martí", frase: "Ara li toca al" },
-      { nom: "Laia", frase: "Ara li toca a la" },
-      { nom: "Aleksandr", frase: "Ara li toca a l'" },
-      { nom: "Andrew Matías", frase: "Ara li toca a l'" },
-      { nom: "Dominika", frase: "Ara li toca a la" },
-      { nom: "Albert", frase: "Ara li toca a l'" },
-      { nom: "Varvara", frase: "Ara li toca a la" },
-      { nom: "Luz", frase: "Ara li toca a la" },
-      { nom: "Aliha", frase: "Ara li toca a l'" },
-      { nom: "Andrew Jeremías", frase: "Ara li toca a l'" },
-      { nom: "Ellen", frase: "Ara li toca a l'" },
-      { nom: "Redhen", frase: "Ara li toca al" },
-      { nom: "Amy", frase: "Ara li toca a l'" },
-      { nom: "Taoming", frase: "Ara li toca al" },
-      { nom: "Hengji", frase: "Ara li toca al" }
+      { nom: "Jan", article: "al" },
+      { nom: "Jaden", article: "al" },
+      { nom: "Laura", article: "a la" },
+      { nom: "Hugo", article: "a l'" },
+      { nom: "Faustino", article: "al" },
+      { nom: "Tamara", article: "a la" },
+      { nom: "María", article: "a la" },
+      { nom: "Silke", article: "a la" },
+      { nom: "Lila", article: "a la" },
+      { nom: "Naila", article: "a la" },
+      { nom: "Jad", article: "al" },
+      { nom: "Ilina", article: "a l'" },
+      { nom: "Martí", article: "al" },
+      { nom: "Laia", article: "a la" },
+      { nom: "Aleksandr", article: "a l'" },
+      { nom: "Andrew Matías", article: "a l'" },
+      { nom: "Dominika", article: "a la" },
+      { nom: "Albert", article: "a l'" },
+      { nom: "Varvara", article: "a la" },
+      { nom: "Luz", article: "a la" },
+      { nom: "Aliha", article: "a l'" },
+      { nom: "Andrew Jeremías", article: "a l'" },
+      { nom: "Ellen", article: "a l'" },
+      { nom: "Redhen", article: "al" },
+      { nom: "Amy", article: "a l'" },
+      { nom: "Taoming", article: "al" },
+      { nom: "Hengji", article: "al" }
 
     ];
 
@@ -502,9 +440,27 @@
 
       document.getElementById("faseInicial").style.display = "none";
       document.getElementById("faseNom").style.display = "none";
-      document.getElementById("faseAlumne").style.display = "none";
-      document.getElementById("faseBombo").style.display = "none";
       document.getElementById("faseNumero").style.display = "none";
+      document.getElementById("faseResultat").style.display = "none";
+
+    }
+
+
+    function animarBarra(id, duracion) {
+
+      const barra = document.getElementById(id);
+
+      barra.style.transition = "none";
+      barra.style.width = "0%";
+
+      setTimeout(function() {
+
+        barra.style.transition =
+          "width " + duracion + "ms linear";
+
+        barra.style.width = "100%";
+
+      }, 50);
 
     }
 
@@ -513,9 +469,6 @@
 
       const boton =
         document.getElementById("boton");
-
-      const barra =
-        document.getElementById("barraProgres");
 
 
       boton.disabled = true;
@@ -532,7 +485,7 @@
       }
 
 
-      /* ESCOLLIR ALUMNE */
+      /* TRIAR ALUMNE */
 
       const indiceAlumne =
         Math.floor(
@@ -545,112 +498,102 @@
         alumnesDisponibles[indiceAlumne];
 
 
-      /* FASE 1: SORTEIG DEL NOM */
+      /* TRIAR NÚMERO */
+
+      const indiceNumero =
+        Math.floor(
+          Math.random() *
+          numerosDisponibles.length
+        );
+
+
+      const numeroEscollit =
+        numerosDisponibles[indiceNumero];
+
+
+      /* ========================= */
+      /* FASE 1: ESCOLLIR ALUMNE   */
+      /* ========================= */
 
       ocultarFases();
 
       document.getElementById("faseNom").style.display = "flex";
 
-
-      barra.style.transition = "none";
-      barra.style.width = "0%";
+      animarBarra("barraNom", 2500);
 
 
       setTimeout(function() {
 
-        barra.style.transition = "width 2.5s linear";
-        barra.style.width = "100%";
 
-      }, 50);
-
-
-      /* MOSTRAR NOM */
-
-      setTimeout(function() {
-
-
-        alumnesDisponibles.splice(indiceAlumne, 1);
-
-        alumnesSortits.push(alumne);
-
+        /* ========================= */
+        /* FASE 2: ESCOLLIR NÚMERO   */
+        /* ========================= */
 
         ocultarFases();
 
-        document.getElementById("faseAlumne").style.display = "flex";
+        document.getElementById("faseNumero").style.display = "flex";
 
+        animarBarra("barraNumero", 3000);
 
-        document.getElementById("frase").textContent =
-          alumne.frase;
-
-        document.getElementById("nombre").textContent =
-          alumne.nom;
-
-
-        actualizarListas();
-
-
-        /* DEIXAR VEURE EL NOM */
 
         setTimeout(function() {
 
 
-          /* MOSTRAR NOM + BOMBO */
+          /* ELIMINAR ALUMNE I NÚMERO */
+
+          alumnesDisponibles.splice(
+            indiceAlumne,
+            1
+          );
+
+          alumnesSortits.push(alumne);
+
+
+          numerosDisponibles.splice(
+            indiceNumero,
+            1
+          );
+
+
+          /* FORMATAR NÚMERO */
+
+          const numeroAleatori =
+            numeroEscollit >= 0
+              ? "+" + numeroEscollit.toFixed(2)
+              : numeroEscollit.toFixed(2);
+
+
+          /* ========================= */
+          /* FASE 3: RESULTAT FINAL    */
+          /* ========================= */
 
           ocultarFases();
 
-          document.getElementById("faseAlumne").style.display = "flex";
-          document.getElementById("faseBombo").style.display = "flex";
+          document.getElementById("faseResultat").style.display =
+            "flex";
 
 
-          /* ESPERAR 3 SEGONS */
-
-          setTimeout(function() {
-
-
-            /* ESCOLLIR NÚMERO */
-
-            const indiceNumero =
-              Math.floor(
-                Math.random() *
-                numerosDisponibles.length
-              );
+          document.getElementById("resultatNom").textContent =
+            "Li ha tocat " +
+            alumne.article +
+            (alumne.article === "a l'" ? "" : " ") +
+            alumne.nom;
 
 
-            const numeroEscollit =
-              numerosDisponibles.splice(
-                indiceNumero,
-                1
-              )[0];
+          document.getElementById("numero").textContent =
+            numeroAleatori;
 
 
-            const numeroAleatori =
-              numeroEscollit >= 0
-                ? "+" + numeroEscollit.toFixed(2)
-                : numeroEscollit.toFixed(2);
+          actualizarListas();
 
 
-            /* RESULTAT FINAL */
-
-            ocultarFases();
-
-            document.getElementById("faseAlumne").style.display = "flex";
-            document.getElementById("faseNumero").style.display = "flex";
+          boton.disabled = false;
 
 
-            document.getElementById("numero").textContent =
-              numeroAleatori;
+        }, 3050);
 
 
-            boton.disabled = false;
-
-
-          }, 3000);
-
-
-        }, 1500);
-
-
-      }, 2600);
+      }, 2550);
 
     }
 
