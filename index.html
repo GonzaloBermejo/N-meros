@@ -13,153 +13,200 @@
     }
 
     body {
-      font-family: "Segoe UI", Arial, sans-serif;
       margin: 0;
-      background-color: #f7f7f5;
       height: 100vh;
       overflow: hidden;
+      background-color: #fafaf8;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: #111;
     }
 
     .pagina {
       display: grid;
-      grid-template-columns: 260px 1fr 260px;
-      gap: 30px;
-      width: 100%;
+      grid-template-columns: 280px 1fr 280px;
+      gap: 45px;
       height: 100vh;
-      padding: 25px;
+      padding: 60px 15px;
       align-items: center;
     }
 
-    /* QUADRES LATERALS */
+    /* PANELS LATERALS */
 
     .cuadro {
-      background-color: white;
-      border: 1px solid #cfcfcf;
-      border-radius: 14px;
-      padding: 18px;
-      height: 92vh;
+      height: 90vh;
+      background: white;
+      border: 1px solid #d6d6d6;
+      border-radius: 15px;
+      padding: 28px 22px;
+
+      box-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.04);
+
       overflow-y: auto;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
     }
 
     .cuadro h3 {
+      margin: 0 0 25px 0;
       text-align: center;
-      font-size: 22px;
-      margin-top: 4px;
-      margin-bottom: 18px;
+
+      font-size: 28px;
+      font-weight: 700;
     }
 
     .lista-nombres {
-      font-size: 18px;
-      line-height: 1.5;
+      font-size: 20px;
+      line-height: 1.6;
       text-align: center;
     }
 
-    /* PART CENTRAL */
+    /* ZONA CENTRAL */
 
     .centro {
-      text-align: center;
-      height: 92vh;
+      height: 90vh;
 
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
 
-      min-width: 0;
+      text-align: center;
     }
 
-    h1 {
-      font-size: 50px;
-      margin: 0 0 15px 0;
+    /* RESULTAT */
+
+    #zonaResultat {
+      width: 100%;
+    }
+
+    #frase {
+      font-size: 52px;
+      font-weight: 700;
+      margin: 0 0 25px 0;
     }
 
     #nombre {
-      font-size: 72px;
-      font-weight: 700;
-      min-height: 85px;
+      font-size: 76px;
+      font-weight: 750;
+      min-height: 95px;
 
       display: flex;
       align-items: center;
       justify-content: center;
 
-      margin-bottom: 20px;
+      margin-bottom: 35px;
     }
 
     h2 {
-      font-size: 38px;
-      margin: 0 0 10px 0;
+      font-size: 42px;
+      font-weight: 700;
+
+      margin: 0 0 20px 0;
     }
 
     #numero {
-      font-size: 100px;
-      font-weight: 700;
-      min-height: 115px;
+      font-size: 110px;
+      font-weight: 750;
+      min-height: 130px;
 
       display: flex;
       align-items: center;
       justify-content: center;
 
-      margin-bottom: 10px;
+      margin-bottom: 25px;
     }
 
     /* BOMBO */
 
-    #bombo {
+    #zonaBombo {
       display: none;
-      width: 300px;
-      height: 230px;
-      object-fit: contain;
-      margin: 0 0 20px 0;
+
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
-    /* BOTÓ */
+    #textoBombo {
+      font-size: 46px;
+      font-weight: 700;
+      margin-bottom: 55px;
+    }
+
+    #bombo {
+      width: 440px;
+      height: 440px;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* BOTÓN */
 
     button {
-      font-size: 30px;
-      padding: 15px 48px;
-      cursor: pointer;
+      margin-top: 30px;
 
-      border-radius: 12px;
-      border: none;
+      font-size: 34px;
+      padding: 18px 65px;
 
       background-color: #222;
       color: white;
 
-      transition: 0.2s;
+      border: none;
+      border-radius: 14px;
+
+      cursor: pointer;
+
+      transition:
+        background-color 0.2s,
+        transform 0.15s;
     }
 
     button:hover {
-      background-color: #444;
+      background-color: #3b3b3b;
       transform: translateY(-1px);
     }
 
     button:disabled {
-      opacity: 0.55;
+      background-color: #929292;
       cursor: default;
       transform: none;
     }
 
-    /* PANTALLES PETITES */
+    /* PANTALLES MÉS PETITES */
 
-    @media (max-width: 900px) {
-
-      body {
-        overflow: auto;
-      }
+    @media (max-width: 1100px) {
 
       .pagina {
-        grid-template-columns: 1fr;
-        height: auto;
+        grid-template-columns: 230px 1fr 230px;
+        gap: 25px;
       }
 
-      .cuadro {
-        height: auto;
+      .cuadro h3 {
+        font-size: 23px;
       }
 
-      .centro {
-        order: -1;
-        height: auto;
+      .lista-nombres {
+        font-size: 18px;
+      }
+
+      #frase {
+        font-size: 44px;
+      }
+
+      #nombre {
+        font-size: 65px;
+      }
+
+      h2 {
+        font-size: 35px;
+      }
+
+      #numero {
+        font-size: 95px;
+      }
+
+      #bombo {
+        width: 370px;
+        height: 370px;
       }
 
     }
@@ -167,9 +214,11 @@
   </style>
 </head>
 
+
 <body>
 
   <div class="pagina">
+
 
     <!-- ESQUERRA -->
 
@@ -190,36 +239,55 @@
 
     <div class="centro">
 
-      <h1 id="frase">
-        Ara li toca a...
-      </h1>
 
-      <div id="nombre">
-        —
+      <!-- RESULTAT -->
+
+      <div id="zonaResultat">
+
+        <div id="frase">
+          Ara li toca a...
+        </div>
+
+        <div id="nombre">
+          —
+        </div>
+
+        <h2>
+          Has de col·locar el número...
+        </h2>
+
+        <div id="numero">
+          —
+        </div>
+
       </div>
 
 
-      <h2>
-        Has de col·locar el número...
-      </h2>
+      <!-- BOMBO -->
 
-      <div id="numero">
-        —
+      <div id="zonaBombo">
+
+        <div id="textoBombo">
+          Has de col·locar el número...
+        </div>
+
+        <img
+          id="bombo"
+          src="bingo.gif"
+          alt="Bombo de bingo"
+        >
+
       </div>
 
 
-      <img
-        id="bombo"
-        src="bingo.gif"
-        alt="Bombo de bingo"
-      >
-
+      <!-- BOTÓN -->
 
       <button
         id="boton"
         onclick="generar()">
         Generar
       </button>
+
 
     </div>
 
@@ -236,6 +304,7 @@
       </div>
 
     </div>
+
 
   </div>
 
@@ -280,9 +349,7 @@
       const numeros = [];
 
       for (let i = -500; i <= 500; i++) {
-
         numeros.push(i / 100);
-
       }
 
       return numeros;
@@ -310,9 +377,7 @@
 
         hanSortit.innerHTML = "—";
 
-      }
-
-      else {
+      } else {
 
         hanSortit.innerHTML =
           alumnesSortits
@@ -326,9 +391,7 @@
 
         queden.innerHTML = "—";
 
-      }
-
-      else {
+      } else {
 
         queden.innerHTML =
           alumnesDisponibles
@@ -345,37 +408,26 @@
       const boton =
         document.getElementById("boton");
 
-      const bombo =
-        document.getElementById("bombo");
+      const zonaResultat =
+        document.getElementById("zonaResultat");
 
-      const nombre =
-        document.getElementById("nombre");
-
-      const numero =
-        document.getElementById("numero");
-
-      const frase =
-        document.getElementById("frase");
+      const zonaBombo =
+        document.getElementById("zonaBombo");
 
 
-      /* Bloquejar el botó */
+      /* Desactivar botó */
 
       boton.disabled = true;
 
 
-      /* Amagar el resultat anterior */
+      /* Ocultar resultat anterior */
 
-      frase.textContent =
-        "Ara li toca...";
-
-      nombre.textContent = "";
-
-      numero.textContent = "";
+      zonaResultat.style.display = "none";
 
 
-      /* Mostrar el bombo */
+      /* Mostrar bombo */
 
-      bombo.style.display = "block";
+      zonaBombo.style.display = "flex";
 
 
       /* Esperar 3 segons */
@@ -383,22 +435,20 @@
       setTimeout(function() {
 
 
-        /* Nova ronda */
+        /* Reiniciar quan han sortit tots */
 
         if (alumnesDisponibles.length === 0) {
 
-          alumnesDisponibles =
-            [...alumnes];
+          alumnesDisponibles = [...alumnes];
 
           alumnesSortits = [];
 
-          numerosDisponibles =
-            crearNumeros();
+          numerosDisponibles = crearNumeros();
 
         }
 
 
-        /* Alumne aleatori */
+        /* Escollir alumne */
 
         const indiceAlumne =
           Math.floor(
@@ -417,7 +467,7 @@
         alumnesSortits.push(alumne);
 
 
-        /* Número aleatori no repetit */
+        /* Escollir número no repetit */
 
         const indiceNumero =
           Math.floor(
@@ -433,33 +483,34 @@
           )[0];
 
 
-        /* Format del número */
+        /* Formatar número */
 
         const numeroAleatori =
-
           numeroEscollit >= 0
-
-          ? "+" +
-            numeroEscollit.toFixed(2)
-
-          : numeroEscollit.toFixed(2);
-
-
-        /* Amagar bombo */
-
-        bombo.style.display = "none";
+            ? "+" + numeroEscollit.toFixed(2)
+            : numeroEscollit.toFixed(2);
 
 
         /* Mostrar resultat */
 
-        frase.textContent =
+        document.getElementById("frase").textContent =
           alumne.frase;
 
-        nombre.textContent =
+        document.getElementById("nombre").textContent =
           alumne.nom;
 
-        numero.textContent =
+        document.getElementById("numero").textContent =
           numeroAleatori;
+
+
+        /* Amagar bombo */
+
+        zonaBombo.style.display = "none";
+
+
+        /* Mostrar resultat */
+
+        zonaResultat.style.display = "block";
 
 
         actualizarListas();
