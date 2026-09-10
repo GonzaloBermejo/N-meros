@@ -64,6 +64,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
+      position: relative;
     }
 
     /* FASES */
@@ -154,9 +155,9 @@
       margin: 0;
     }
 
-    /* BOTÓ */
+    /* BOTÓ PRINCIPAL */
 
-    button {
+    #boton {
       margin-top: 30px;
       font-size: 34px;
       padding: 18px 65px;
@@ -168,15 +169,121 @@
       transition: background-color 0.2s, transform 0.15s;
     }
 
-    button:hover {
+    #boton:hover {
       background-color: #3b3b3b;
       transform: translateY(-1px);
     }
 
-    button:disabled {
+    #boton:disabled {
       background-color: #999;
       cursor: default;
       transform: none;
+    }
+
+    /* BOTÓ CONFIGURACIÓ */
+
+    #botonConfig {
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      background: white;
+      color: #333;
+
+      border: 1px solid #ccc;
+      border-radius: 10px;
+
+      font-size: 18px;
+      padding: 9px 14px;
+
+      cursor: pointer;
+    }
+
+    #botonConfig:hover {
+      background-color: #f0f0f0;
+    }
+
+    /* PANELL CONFIGURACIÓ */
+
+    #configPanel {
+      display: none;
+
+      position: absolute;
+      top: 55px;
+      right: 0;
+
+      width: 290px;
+
+      background: white;
+
+      border: 1px solid #ccc;
+      border-radius: 14px;
+
+      padding: 20px;
+
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+
+      text-align: left;
+
+      z-index: 20;
+    }
+
+    #configPanel h3 {
+      margin-top: 0;
+      margin-bottom: 18px;
+      text-align: center;
+      font-size: 21px;
+    }
+
+    .config-fila {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 14px;
+    }
+
+    .config-fila label {
+      font-size: 17px;
+    }
+
+    .config-fila input {
+      width: 100px;
+      font-size: 17px;
+      padding: 6px 8px;
+
+      border: 1px solid #bbb;
+      border-radius: 7px;
+    }
+
+    #guardarConfig {
+      display: block;
+      width: 100%;
+
+      margin-top: 15px;
+      padding: 10px;
+
+      font-size: 17px;
+
+      background: #222;
+      color: white;
+
+      border: none;
+      border-radius: 8px;
+
+      cursor: pointer;
+    }
+
+    #guardarConfig:hover {
+      background: #444;
+    }
+
+    #mensajeConfig {
+      margin-top: 12px;
+      font-size: 14px;
+      text-align: center;
+      color: #555;
+      min-height: 18px;
     }
 
     /* PANTALLES MÉS PETITES */
@@ -244,6 +351,45 @@
 
     <div class="centro">
 
+      <!-- CONFIGURACIÓ -->
+
+      <button id="botonConfig" onclick="toggleConfig()">
+        ⚙ Configuració
+      </button>
+
+      <div id="configPanel">
+
+        <h3>Configuració del número</h3>
+
+        <div class="config-fila">
+          <label for="minim">Mínim</label>
+          <input id="minim" type="number" value="-5">
+        </div>
+
+        <div class="config-fila">
+          <label for="maxim">Màxim</label>
+          <input id="maxim" type="number" value="5">
+        </div>
+
+        <div class="config-fila">
+          <label for="decimals">Decimals</label>
+          <input
+            id="decimals"
+            type="number"
+            min="0"
+            max="4"
+            value="2"
+          >
+        </div>
+
+        <button id="guardarConfig" onclick="guardarConfiguracio()">
+          Desar
+        </button>
+
+        <div id="mensajeConfig"></div>
+
+      </div>
+
 
       <!-- ESTAT INICIAL -->
 
@@ -258,7 +404,7 @@
       </div>
 
 
-      <!-- FASE 1: ESCOLLIR ALUMNE -->
+      <!-- FASE 1 -->
 
       <div id="faseNom" class="fase">
 
@@ -279,7 +425,7 @@
       </div>
 
 
-      <!-- FASE 2: ESCOLLIR NÚMERO -->
+      <!-- FASE 2 -->
 
       <div id="faseNumero" class="fase">
 
@@ -300,7 +446,7 @@
       </div>
 
 
-      <!-- FASE 3: RESULTAT -->
+      <!-- FASE 3 -->
 
       <div id="faseResultat" class="fase">
 
@@ -319,14 +465,13 @@
       </div>
 
 
-      <!-- BOTÓ -->
+      <!-- BOTÓ PRINCIPAL -->
 
       <button
         id="boton"
         onclick="generar()">
         Generar
       </button>
-
 
     </div>
 
@@ -379,12 +524,29 @@
     ];
 
 
+    let minim = -5;
+    let maxim = 5;
+    let decimals = 2;
+
+
     function crearNumeros() {
 
       const numeros = [];
 
-      for (let i = -500; i <= 500; i++) {
-        numeros.push(i / 100);
+      const factor =
+        Math.pow(10, decimals);
+
+      const inicio =
+        Math.round(minim * factor);
+
+      const final =
+        Math.round(maxim * factor);
+
+
+      for (let i = inicio; i <= final; i++) {
+
+        numeros.push(i / factor);
+
       }
 
       return numeros;
@@ -448,10 +610,12 @@
 
     function animarBarra(id, duracion) {
 
-      const barra = document.getElementById(id);
+      const barra =
+        document.getElementById(id);
 
       barra.style.transition = "none";
       barra.style.width = "0%";
+
 
       setTimeout(function() {
 
@@ -465,6 +629,120 @@
     }
 
 
+    function toggleConfig() {
+
+      const panel =
+        document.getElementById("configPanel");
+
+      if (panel.style.display === "block") {
+
+        panel.style.display = "none";
+
+      } else {
+
+        panel.style.display = "block";
+
+      }
+
+    }
+
+
+    function guardarConfiguracio() {
+
+      const nouMinim =
+        Number(document.getElementById("minim").value);
+
+      const nouMaxim =
+        Number(document.getElementById("maxim").value);
+
+      const nousDecimals =
+        Number(document.getElementById("decimals").value);
+
+      const mensaje =
+        document.getElementById("mensajeConfig");
+
+
+      if (
+        !Number.isFinite(nouMinim) ||
+        !Number.isFinite(nouMaxim)
+      ) {
+
+        mensaje.textContent =
+          "Introdueix valors vàlids.";
+
+        return;
+
+      }
+
+
+      if (nouMinim >= nouMaxim) {
+
+        mensaje.textContent =
+          "El mínim ha de ser menor que el màxim.";
+
+        return;
+
+      }
+
+
+      if (
+        !Number.isInteger(nousDecimals) ||
+        nousDecimals < 0 ||
+        nousDecimals > 4
+      ) {
+
+        mensaje.textContent =
+          "Els decimals han d'estar entre 0 i 4.";
+
+        return;
+
+      }
+
+
+      const factor =
+        Math.pow(10, nousDecimals);
+
+      const quantitatNumeros =
+        Math.round(
+          (nouMaxim - nouMinim) * factor
+        ) + 1;
+
+
+      if (quantitatNumeros < alumnes.length) {
+
+        mensaje.textContent =
+          "No hi ha prou números diferents per a tots els alumnes.";
+
+        return;
+
+      }
+
+
+      minim = nouMinim;
+      maxim = nouMaxim;
+      decimals = nousDecimals;
+
+
+      /* Reiniciem els números disponibles */
+
+      numerosDisponibles =
+        crearNumeros();
+
+
+      mensaje.textContent =
+        "Configuració desada.";
+
+
+      setTimeout(function() {
+
+        document.getElementById("configPanel").style.display =
+          "none";
+
+      }, 800);
+
+    }
+
+
     function generar() {
 
       const boton =
@@ -472,6 +750,9 @@
 
 
       boton.disabled = true;
+
+      document.getElementById("botonConfig").disabled =
+        true;
 
 
       /* NOVA RONDA */
@@ -511,13 +792,12 @@
         numerosDisponibles[indiceNumero];
 
 
-      /* ========================= */
-      /* FASE 1: ESCOLLIR ALUMNE   */
-      /* ========================= */
+      /* FASE 1: ALUMNE */
 
       ocultarFases();
 
-      document.getElementById("faseNom").style.display = "flex";
+      document.getElementById("faseNom").style.display =
+        "flex";
 
       animarBarra("barraNom", 2500);
 
@@ -525,13 +805,12 @@
       setTimeout(function() {
 
 
-        /* ========================= */
-        /* FASE 2: ESCOLLIR NÚMERO   */
-        /* ========================= */
+        /* FASE 2: NÚMERO */
 
         ocultarFases();
 
-        document.getElementById("faseNumero").style.display = "flex";
+        document.getElementById("faseNumero").style.display =
+          "flex";
 
         animarBarra("barraNumero", 3000);
 
@@ -539,7 +818,7 @@
         setTimeout(function() {
 
 
-          /* ELIMINAR ALUMNE I NÚMERO */
+          /* ELIMINAR ALUMNE */
 
           alumnesDisponibles.splice(
             indiceAlumne,
@@ -548,6 +827,8 @@
 
           alumnesSortits.push(alumne);
 
+
+          /* ELIMINAR NÚMERO */
 
           numerosDisponibles.splice(
             indiceNumero,
@@ -559,13 +840,11 @@
 
           const numeroAleatori =
             numeroEscollit >= 0
-              ? "+" + numeroEscollit.toFixed(2)
-              : numeroEscollit.toFixed(2);
+              ? "+" + numeroEscollit.toFixed(decimals)
+              : numeroEscollit.toFixed(decimals);
 
 
-          /* ========================= */
-          /* FASE 3: RESULTAT FINAL    */
-          /* ========================= */
+          /* RESULTAT FINAL */
 
           ocultarFases();
 
@@ -588,6 +867,9 @@
 
 
           boton.disabled = false;
+
+          document.getElementById("botonConfig").disabled =
+            false;
 
 
         }, 3050);
