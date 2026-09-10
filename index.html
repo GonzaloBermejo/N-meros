@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Ara li toca...</title>
+  <title>Sorteig aleatori</title>
 
   <style>
 
@@ -26,7 +26,7 @@
       grid-template-columns: 280px 1fr 280px;
       gap: 45px;
       height: 100vh;
-      padding: 60px 15px;
+      padding: 45px 15px;
       align-items: center;
     }
 
@@ -38,17 +38,13 @@
       border: 1px solid #d6d6d6;
       border-radius: 15px;
       padding: 28px 22px;
-
-      box-shadow:
-        0 3px 12px rgba(0, 0, 0, 0.04);
-
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
       overflow-y: auto;
     }
 
     .cuadro h3 {
       margin: 0 0 25px 0;
       text-align: center;
-
       font-size: 28px;
       font-weight: 700;
     }
@@ -72,12 +68,62 @@
       text-align: center;
     }
 
-    /* NOM DE L'ALUMNE */
+    /* FASE SORTEIG NOM */
+
+    #faseNom {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    #textoNom {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+
+    #imatgeNom {
+      width: 330px;
+      max-height: 300px;
+      object-fit: contain;
+      margin-bottom: 30px;
+    }
+
+    /* BARRA DE PROGRÉS */
+
+    .barra-contenidor {
+      width: 420px;
+      max-width: 80%;
+      height: 18px;
+      background-color: #e4e4e4;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 25px;
+    }
+
+    #barraProgres {
+      width: 0%;
+      height: 100%;
+      background-color: #222;
+      border-radius: 20px;
+    }
+
+    /* ALUMNE */
+
+    #faseAlumne {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
 
     #frase {
-      font-size: 52px;
+      font-size: 50px;
       font-weight: 700;
-      margin: 0 0 20px 0;
+      margin-bottom: 15px;
     }
 
     #nombre {
@@ -89,20 +135,46 @@
       align-items: center;
       justify-content: center;
 
-      margin-bottom: 25px;
+      margin-bottom: 20px;
     }
 
-    /* ZONA DEL NÚMERO */
+    /* FASE BOMBO */
 
-    #zonaNumero {
+    #faseBombo {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       width: 100%;
     }
 
-    h2 {
+    #textoBombo {
+      font-size: 40px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    #bombo {
+      width: 390px;
+      height: 330px;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* NÚMERO */
+
+    #faseNumero {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    #textoNumero {
       font-size: 42px;
       font-weight: 700;
-
-      margin: 0 0 20px 0;
+      margin-bottom: 10px;
     }
 
     #numero {
@@ -115,52 +187,37 @@
       justify-content: center;
     }
 
-    /* BOMBO */
+    /* ESTAT INICIAL */
 
-    #zonaBombo {
-      display: none;
-
-      width: 100%;
-
+    #faseInicial {
+      display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-
-      margin-top: 5px;
     }
 
-    #textoBombo {
-      font-size: 42px;
-      font-weight: 700;
+    #faseInicial h1 {
+      font-size: 52px;
       margin-bottom: 25px;
     }
 
-    #bombo {
-      width: 390px;
-      height: 390px;
-      object-fit: contain;
-      display: block;
+    #faseInicial p {
+      font-size: 28px;
+      margin: 0;
     }
 
-    /* BOTÓN */
+    /* BOTÓ */
 
     button {
       margin-top: 25px;
-
       font-size: 34px;
       padding: 18px 65px;
-
       background-color: #222;
       color: white;
-
       border: none;
       border-radius: 14px;
-
       cursor: pointer;
-
-      transition:
-        background-color 0.2s,
-        transform 0.15s;
+      transition: background-color 0.2s, transform 0.15s;
     }
 
     button:hover {
@@ -192,28 +249,30 @@
       }
 
       #frase {
-        font-size: 44px;
+        font-size: 42px;
       }
 
       #nombre {
-        font-size: 65px;
+        font-size: 64px;
       }
 
-      h2 {
-        font-size: 35px;
+      #textoNom,
+      #textoBombo,
+      #textoNumero {
+        font-size: 34px;
+      }
+
+      #imatgeNom {
+        width: 280px;
+      }
+
+      #bombo {
+        width: 330px;
+        height: 280px;
       }
 
       #numero {
         font-size: 95px;
-      }
-
-      #textoBombo {
-        font-size: 35px;
-      }
-
-      #bombo {
-        width: 340px;
-        height: 340px;
       }
 
     }
@@ -221,11 +280,9 @@
   </style>
 </head>
 
-
 <body>
 
   <div class="pagina">
-
 
     <!-- ESQUERRA -->
 
@@ -247,20 +304,58 @@
     <div class="centro">
 
 
-      <!-- NOM -->
+      <!-- ESTAT INICIAL -->
 
-      <div id="frase">
-        Ara li toca a...
+      <div id="faseInicial">
+
+        <h1>Sorteig aleatori</h1>
+
+        <p>
+          Prem el botó per començar
+        </p>
+
       </div>
 
-      <div id="nombre">
-        —
+
+      <!-- FASE 1: NOM -->
+
+      <div id="faseNom">
+
+        <div id="textoNom">
+          Escollint alumne...
+        </div>
+
+        <img
+          id="imatgeNom"
+          src="namesinhat.jpg"
+          alt="Noms dins d'un barret"
+        >
+
+        <div class="barra-contenidor">
+          <div id="barraProgres"></div>
+        </div>
+
       </div>
 
 
-      <!-- BOMBO -->
+      <!-- FASE 2: ALUMNE -->
 
-      <div id="zonaBombo">
+      <div id="faseAlumne">
+
+        <div id="frase">
+          Ara li toca a...
+        </div>
+
+        <div id="nombre">
+          —
+        </div>
+
+      </div>
+
+
+      <!-- FASE 3: BOMBO -->
+
+      <div id="faseBombo">
 
         <div id="textoBombo">
           Preparant el número...
@@ -275,13 +370,13 @@
       </div>
 
 
-      <!-- NÚMERO -->
+      <!-- FASE 4: NÚMERO -->
 
-      <div id="zonaNumero">
+      <div id="faseNumero">
 
-        <h2>
+        <div id="textoNumero">
           Has de col·locar el número...
-        </h2>
+        </div>
 
         <div id="numero">
           —
@@ -290,7 +385,7 @@
       </div>
 
 
-      <!-- BOTÓN -->
+      <!-- BOTÓ -->
 
       <button
         id="boton"
@@ -314,7 +409,6 @@
       </div>
 
     </div>
-
 
   </div>
 
@@ -411,19 +505,25 @@
     }
 
 
+    function ocultarFases() {
+
+      document.getElementById("faseInicial").style.display = "none";
+      document.getElementById("faseNom").style.display = "none";
+      document.getElementById("faseAlumne").style.display = "none";
+      document.getElementById("faseBombo").style.display = "none";
+      document.getElementById("faseNumero").style.display = "none";
+
+    }
+
+
     function generar() {
 
       const boton =
         document.getElementById("boton");
 
-      const zonaBombo =
-        document.getElementById("zonaBombo");
+      const barra =
+        document.getElementById("barraProgres");
 
-      const zonaNumero =
-        document.getElementById("zonaNumero");
-
-
-      /* DESACTIVAR BOTÓ */
 
       boton.disabled = true;
 
@@ -439,7 +539,7 @@
       }
 
 
-      /* 1. ESCOLLIR I MOSTRAR L'ALUMNE */
+      /* ESCOLLIR ALUMNE */
 
       const indiceAlumne =
         Math.floor(
@@ -449,83 +549,115 @@
 
 
       const alumne =
-        alumnesDisponibles.splice(
-          indiceAlumne,
-          1
-        )[0];
+        alumnesDisponibles[indiceAlumne];
 
 
-      alumnesSortits.push(alumne);
+      /* FASE 1: SORTEIG DEL NOM */
+
+      ocultarFases();
+
+      document.getElementById("faseNom").style.display = "flex";
 
 
-      document.getElementById("frase").textContent =
-        alumne.frase;
-
-      document.getElementById("nombre").textContent =
-        alumne.nom;
+      barra.style.transition = "none";
+      barra.style.width = "0%";
 
 
-      actualizarListas();
+      setTimeout(function() {
+
+        barra.style.transition = "width 2.5s linear";
+        barra.style.width = "100%";
+
+      }, 50);
 
 
-      /* 2. AMAGAR EL NÚMERO ANTERIOR */
-
-      zonaNumero.style.display = "none";
-
-
-      /* 3. MOSTRAR EL BOMBO */
-
-      zonaBombo.style.display = "flex";
-
-
-      /* 4. ESPERAR 3 SEGONS */
+      /* DESPRÉS DE 2,5 SEGONS: MOSTRAR NOM */
 
       setTimeout(function() {
 
 
-        /* ESCOLLIR NÚMERO NO REPETIT */
+        alumnesDisponibles.splice(indiceAlumne, 1);
 
-        const indiceNumero =
-          Math.floor(
-            Math.random() *
-            numerosDisponibles.length
-          );
+        alumnesSortits.push(alumne);
 
 
-        const numeroEscollit =
-          numerosDisponibles.splice(
-            indiceNumero,
-            1
-          )[0];
+        ocultarFases();
+
+        document.getElementById("faseAlumne").style.display = "flex";
 
 
-        /* FORMATAR NÚMERO */
+        document.getElementById("frase").textContent =
+          alumne.frase;
 
-        const numeroAleatori =
-          numeroEscollit >= 0
-            ? "+" + numeroEscollit.toFixed(2)
-            : numeroEscollit.toFixed(2);
-
-
-        /* 5. AMAGAR BOMBO */
-
-        zonaBombo.style.display = "none";
+        document.getElementById("nombre").textContent =
+          alumne.nom;
 
 
-        /* 6. MOSTRAR NÚMERO */
-
-        document.getElementById("numero").textContent =
-          numeroAleatori;
-
-        zonaNumero.style.display = "block";
+        actualizarListas();
 
 
-        /* REACTIVAR BOTÓ */
+        /* DEIXAR VEURE EL NOM 1,5 SEGONS */
 
-        boton.disabled = false;
+        setTimeout(function() {
 
 
-      }, 3000);
+          /* FASE 3: BOMBO */
+
+          ocultarFases();
+
+          document.getElementById("faseAlumne").style.display = "flex";
+          document.getElementById("faseBombo").style.display = "flex";
+
+
+          /* ESPERAR 3 SEGONS */
+
+          setTimeout(function() {
+
+
+            /* ESCOLLIR NÚMERO */
+
+            const indiceNumero =
+              Math.floor(
+                Math.random() *
+                numerosDisponibles.length
+              );
+
+
+            const numeroEscollit =
+              numerosDisponibles.splice(
+                indiceNumero,
+                1
+              )[0];
+
+
+            const numeroAleatori =
+              numeroEscollit >= 0
+                ? "+" + numeroEscollit.toFixed(2)
+                : numeroEscollit.toFixed(2);
+
+
+            /* MOSTRAR RESULTAT FINAL */
+
+            ocultarFases();
+
+            document.getElementById("faseAlumne").style.display = "flex";
+            document.getElementById("faseNumero").style.display = "flex";
+
+
+            document.getElementById("numero").textContent =
+              numeroAleatori;
+
+
+            boton.disabled = false;
+
+
+          }, 3000);
+
+
+        }, 1500);
+
+
+      }, 2600);
 
     }
 
